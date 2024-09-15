@@ -1,0 +1,111 @@
+@startuml
+class Usuario {
+    + nombre: String
+    + afiliacion: String
+    + email: String
+    - contraseña: String
+    + revisiones: List
+    + contarRevisionesPorConferencia(conferencia): int
+    + getRevisionesPorConferencia(conferencia): List
+}
+
+class Conferencia {
+    + nombre: String
+    + comitePrograma: List
+    + chairs: List
+    + sesiones: List
+    + agregarSesion(sesion: Sesion)
+    + agregarRevisor(usuario: Usuario)
+}
+
+class Sesion {
+    + nombre: String
+    + criterioSeleccion: Seleccion
+    + deadline: Date
+    + agregarArticulo(articulo: Articulo): void
+    + validarArticulo(articulo: Articulo): boolean
+    + setEstado(estado): boolean
+    + finalizarRecepcion(): void
+    + validarArticulos(): void
+    + agregarArticulo
+    + seleccionarArticulos
+    + asignarRevisores
+    - obtenerRevisoresValidos(listaRevisores: List, revisoresAsignados: List, maxRevisiones:int)
+    - asignarRevisoresAArticulo (revisores: List, revisoresAsignados:List)
+}
+
+class SesionRegular {
+    + agregarArticulo(articulo: Articulo): void
+}
+
+class SesionPoster {
+    + agregarArticulo(articulo: Articulo): void
+}
+
+abstract class Articulo {
+    + titulo: String
+    + urlArchivo: String
+    + autores: List
+    + autorCorrespondiente: Usuario
+    + revisores: List
+    + interesados: List
+    + quizas: List
+    + estado: String
+    + validar():void
+}
+
+class ArticuloRegular {
+    + abstract: String
+    + validar():void
+}
+
+class ArticuloPoster {
+    + fuentesAdjuntos: String
+    + validar():void
+}
+
+class Revision{
+    + revisor: Revisor
+    + articulo: Articulo
+    + puntaje: int
+    + establecerPuntuacion(puntaje):void
+    + establecerTexto(nuevoTexto):void
+}
+
+
+class Seleccion {
+    + seleccionarArticulos(articulos: List): List
+}
+
+class SeleccionCorteFijo {
+    - porcentaje: int
+    + seleccionarArticulos(articulos: List): List
+}
+
+class SeleccionMejores {
+    - puntajeMinimo: int
+    + seleccionarArticulos(articulos: List): List
+}
+
+
+' ==================
+' Relaciones entre las clases
+' ==================
+Sesion <|-- SesionRegular
+Sesion <|-- SesionPoster
+Articulo <|-- ArticuloRegular
+Articulo <|-- ArticuloPoster
+Seleccion<|-- SeleccionCorteFijo
+Seleccion<|-- SeleccionMejores
+
+Conferencia o-- Sesion
+Sesion o-- Articulo
+Sesion o-- Revision
+Sesion -- Seleccion
+Articulo o-- Usuario : autores
+Articulo -- Usuario :  autorCorrespondiente
+Articulo o-- Usuario : revisores
+Articulo o-- Usuario : interesados
+Articulo o-- Usuario : quizas
+Articulo o-- Revision
+@enduml

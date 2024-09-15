@@ -27,6 +27,5 @@ describe('Test de la clase Articulo', () => {
         const articulo = new ArticuloPoster('Un poster', 'url', 'fuentes');
         expect(articulo.titulo).toBe('Un poster');
         expect(articulo.urlArchivo).toBe('url');
-        //expect(articulo.fuentes).toBe('fuentes');
     });
 });

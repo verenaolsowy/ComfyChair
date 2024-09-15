@@ -11,13 +11,13 @@ beforeEach( ()=> {
     /*fecha*/
     const hoy = new Date();
     fecha = new Date(hoy);
-    fecha.setDate(hoy.getMilliseconds() + 30);
+    fecha.setDate(hoy.getSeconds() + 20);
     /*evaluadores*/ 
     evaluador1  = new Usuario('Juan', 'Perez', 'UNLP Informatica', 'aa', 'aa');
     evaluador2  = new Usuario('Juana', 'Lopez', 'UNLP Infgenieria', 'aa', 'aa');
     
     /*articulos y revisiones */
-    articulo1 = new Articulo('Articulo 1', evaluador1);
+    articulo1 = new Articulo('Articulo 1');
     let r1 = new Revision(evaluador1, articulo1);
     let r2 = new Revision(evaluador2, articulo1);
     r1.establecerPuntuacion(0);
@@ -25,12 +25,12 @@ beforeEach( ()=> {
     articulo1.agregarRevision(r1);
     articulo1.agregarRevision(r2);
 
-    articulo2 = new Articulo('Articulo 2', evaluador2);
+    articulo2 = new Articulo('Articulo 2');
     let r3 = new Revision(evaluador1, articulo2);
     r3.establecerPuntuacion(3);   
     articulo2.agregarRevision(r3);
     
-    articulo3 = new Articulo('Articulo 3', evaluador2);
+    articulo3 = new Articulo('Articulo 3');
     let r4 = new Revision(evaluador1, articulo3);
     r4.establecerPuntuacion(2); 
     articulo3.agregarRevision(r4); 
@@ -73,5 +73,6 @@ describe('SeleccionMejores', () => {
       expect(sesion.articulosAceptados).toEqual(expect.arrayContaining([articulo3]));
       expect(articulo2.estado).toEqual("Rechazado");
       expect(articulo1.estado).toEqual("Rechazado");
+      sesion.limpiarEspera();
     });
   });

@@ -7,16 +7,17 @@ class Usuario {
         this.revisiones = [];
     }
 
-    agregarRevison(revision){
+    agregarRevision(revision){
         this.revisiones.push(revision);
     }
 
     contarRevisionesPorConferencia(conferencia) {
-        return this.revisiones.filter(revision => revision.conferencia === conferencia).length;
+        //console.log(this.revisiones.filter(revision => revision.articulo.sesion.conferencia === conferencia).length);
+        return this.revisiones.filter(revision => revision.articulo.sesion.conferencia === conferencia).length;
       }
 
     getRevisionesPorConferencia(conferencia) {
-        return this.revisiones.filter(revision => revision.conferencia === conferencia);
+        return this.revisiones.filter(revision => revision.articulo.sesion.conferencia === conferencia);
     }
 
 }

@@ -6,9 +6,7 @@ const ArticuloPoster = require('../ArticuloPoster');
 
 const hoy = new Date();
 const futuraFecha = new Date(hoy);
-futuraFecha.setDate(hoy.getMilliseconds() + 30);
-
-console.log(futuraFecha);
+futuraFecha.setDate(hoy.getSeconds() + 20);
 
 
 describe('Test de la clase SesionRegular', () => {
@@ -18,6 +16,7 @@ describe('Test de la clase SesionRegular', () => {
 
         expect(() => sesion.agregarArticulo(articuloRegular)).not.toThrow();
         expect(sesion.articulos.length).toBe(1);
+        sesion.limpiarEspera();
     });
 
     it('debería rechazar un artículo poster', () => {
@@ -25,6 +24,7 @@ describe('Test de la clase SesionRegular', () => {
         const articuloPoster = new ArticuloPoster('Un poster', 'url', 'fuentes');
 
         expect(() => sesion.agregarArticulo(articuloPoster)).toThrow('Solo se permiten artículos de tipo ArticuloRegular en esta sesión.');
+        sesion.limpiarEspera();
     });
 });
 
@@ -35,6 +35,7 @@ describe('Test de la clase SesionPoster', () => {
 
         expect(() => sesion.agregarArticulo(articuloPoster)).not.toThrow();
         expect(sesion.articulos.length).toBe(1);
+        sesion.limpiarEspera();
     });
 
     it('debería rechazar un artículo regular', () => {
@@ -42,6 +43,7 @@ describe('Test de la clase SesionPoster', () => {
         const articuloRegular = new ArticuloRegular('Un artículo regular', 'url', 'Un abstract');
 
         expect(() => sesion.agregarArticulo(articuloRegular)).toThrow('Solo se permiten artículos de tipo ArticuloPoster en esta sesión.');
+        sesion.limpiarEspera();
     });
 });
 

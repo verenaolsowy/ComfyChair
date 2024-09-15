@@ -13,11 +13,16 @@ class Sesion {
         this.estado='Recepcion';
 
         const tiempoRestante = this.fechaLimite - new Date();
+        
         if (tiempoRestante > 0) {
-            setTimeout(() => this.finalizarRecepcion(), tiempoRestante);
+            this.espera=setTimeout(() => this.finalizarRecepcion(), tiempoRestante);
         } else {
             this.finalizarRecepcion(); // Si la fecha ya ha pasado, se ejecuta inmediatamente
         }
+    }
+
+    limpiarEspera(){
+        clearTimeout(this.espera);
     }
 
     setEstado(estado){
@@ -28,7 +33,6 @@ class Sesion {
         if (this.estado === 'Recepcion') {
             this.estado = 'Bidding';
             this.validarArticulos(); //por si falto validar articulos
-            //console.log(`La recepción ha finalizado para la sesión: ${this.nombre}`);
         }
     }
 
@@ -83,26 +87,25 @@ class Sesion {
 
             // Paso 1: Revisores interesados
             let interesados = this.obtenerRevisoresValidos(articulo.interesados, revisoresAsignados, maxRevisionesPorRevisor);
-            this.asignarRevisoresAArticulo(interesados, revisoresAsignados, 3);
+            this.asignarRevisoresAArticulo(interesados, revisoresAsignados);
 
             // Paso 2: Revisores quizás
             if (revisoresAsignados.length < 3) {
                 let quizas = this.obtenerRevisoresValidos(articulo.quizas, revisoresAsignados, maxRevisionesPorRevisor);
-                this.asignarRevisoresAArticulo(quizas, revisoresAsignados, 3 - revisoresAsignados.length);
+                this.asignarRevisoresAArticulo(quizas, revisoresAsignados);
             }
 
             // Paso 3: Revisores sin interés 
+            
             if (revisoresAsignados.length < 3) {
                 let sinInteres = this.obtenerRevisoresValidos(this.conferencia.comitePrograma, revisoresAsignados, maxRevisionesPorRevisor);
-                this.asignarRevisoresAArticulo(sinInteres, revisoresAsignados, 3 - revisoresAsignados.length);
+                this.asignarRevisoresAArticulo(sinInteres, revisoresAsignados);
             }
             revisoresAsignados.forEach(revisor => {
                 let revision = new Revision(revisor, articulo);
                 articulo.agregarRevision(revision);
                 revisor.agregarRevision(revision);
             });
-
-            console.log(`Revisores asignados para el artículo "${articulo.titulo}":`, revisoresAsignados.map(r => r.nombre));
         }
     }
 
@@ -114,10 +117,10 @@ class Sesion {
         );
     }
 
-    // Método que asigna los revisores a un artículo hasta que se alcance el número máximo
-    asignarRevisoresAArticulo(revisores, revisoresAsignados, maxRevisores) {
+    // Método que asigna los revisores a un artículo hasta que tenga 3
+    asignarRevisoresAArticulo(revisores, revisoresAsignados) {
         for (const revisor of revisores) {
-            if (revisoresAsignados.length < maxRevisores) {
+            if (revisoresAsignados.length < 3) {
                 revisoresAsignados.push(revisor);
             }
         }

@@ -7,7 +7,7 @@ class Conferencia {
     }
 
     agregarChair(usuario) {
-        this.chairs.add(usuario);
+        this.chairs.push(usuario);
     }
 
     eliminarChair(usuario) {
@@ -15,7 +15,7 @@ class Conferencia {
     }
 
     agregarRevisor(usuario) {
-        this.comitePrograma.add(usuario);
+        this.comitePrograma.push(usuario);
     }
 
     eliminarRevisor(usuario) {
@@ -23,7 +23,7 @@ class Conferencia {
     }
 
     agregarSesion(sesion) {
-        this.sesiones.set(sesion.id, sesion);
+        this.sesiones.push(sesion);
         sesion.setConferencia(this);
     }
 
