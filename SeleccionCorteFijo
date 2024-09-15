@@ -1,0 +1,21 @@
+class SeleccionCorteFijo extends Seleccion {
+    constructor(porcentaje) {
+        super();
+        this.porcentaje = porcentaje;
+    }
+
+    seleccionarArticulos(articulos) {
+        const cantidadASeleccionar = Math.floor(articulos.length * this.porcentaje / 100);
+        articulos.sort((a, b) => b.puntaje - a.puntaje)
+        let aceptados = [];
+        for (let index = 0; index < cantidadASeleccionar; index++) {
+            articulos[index].estado='Aceptado';
+            aceptados.push(articulos[index]);            
+        }
+
+        for (let index = cantidadASeleccionar + 1 ; index < articulos.length; index++) {
+            articulos[index].estado='Rechazado';         
+        }
+        return articulos;
+    }
+}

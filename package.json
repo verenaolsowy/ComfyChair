@@ -1,0 +1,25 @@
+{
+  "name": "comfychair",
+  "version": "1.0.0",
+  "description": "Trabajo Práctico - TyH 2024",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verenaolsowy/ComfyChair.git"
+  },
+  "keywords": [
+    "ComfyChair"
+  ],
+  "author": "Verena Olsowy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/verenaolsowy/ComfyChair/issues"
+  },
+  "homepage": "https://github.com/verenaolsowy/ComfyChair#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
