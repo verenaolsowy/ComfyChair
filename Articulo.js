@@ -19,6 +19,14 @@ class Articulo {
         this.sesion= sesion
     }
 
+    getPuntaje(){
+        let puntaje=0;
+        this.revisiones.forEach(revision => {
+            puntaje+=revision.puntaje;
+        });
+        return puntaje;
+    }
+
     agregarRevision(revision) {
         if (this.revisiones.length < 3) {
             this.revisiones.push(revision);

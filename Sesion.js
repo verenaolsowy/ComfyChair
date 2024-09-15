@@ -20,6 +20,10 @@ class Sesion {
         }
     }
 
+    setEstado(estado){
+        this.estado=estado;
+    }
+
     finalizarRecepcion() {
         if (this.estado === 'Recepcion') {
             this.estado = 'Bidding';
@@ -65,7 +69,7 @@ class Sesion {
 
     seleccionarArticulos(){
         if (this.estado = 'Seleccion'){
-            this.articulosAceptados = this.criterioSeleccion.seleccionarArticulos();
+            this.articulosAceptados = this.criterioSeleccion.seleccionarArticulos(this.articulos);
         }else{
             throw new Error('La sesión no se encuentra en estado de selección'); 
         }   

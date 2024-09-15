@@ -7,7 +7,7 @@ class ArticuloPoster extends Articulo {
     }
 
     validar() {
-        if (!this.titulo || this.autores.length === 0) {
+        if (!this.titulo || this.autores) {
             return false;
         }
         return true;

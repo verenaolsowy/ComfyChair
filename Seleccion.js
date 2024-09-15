@@ -4,6 +4,6 @@ class Seleccion {
     }
 }
 
-
+module.exports = Seleccion;
 
 

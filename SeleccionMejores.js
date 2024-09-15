@@ -1,3 +1,5 @@
+const Seleccion = require("./Seleccion");
+
 class SeleccionMejores extends Seleccion {
     constructor(puntajeMinimo) {
         super();
@@ -5,9 +7,9 @@ class SeleccionMejores extends Seleccion {
     }
 
     seleccionarArticulos(articulos) {
-        aceptados = [];
+        let aceptados = [];
         articulos.forEach(articulo => {
-            if (articulo.puntaje >= this.puntajeMinimo) {
+            if (articulo.getPuntaje() >= this.puntajeMinimo) {
                 articulo.estado = 'Aceptado'; 
                 aceptados.push(articulo); 
             } else {
@@ -17,3 +19,5 @@ class SeleccionMejores extends Seleccion {
         return aceptados;
     }
 }
+
+module.exports = SeleccionMejores;
